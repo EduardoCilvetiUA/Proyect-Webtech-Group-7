@@ -2,13 +2,27 @@
 
 <h1>Users</h1>
 
-<div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New user", new_user_path %>
+  <table class="table-bordered">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>ID</th>
+      <th>Google Account</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+    <tbody>
+      <% @users.each do |users| %>
+    <tr>
+      <td><%= users.name %></td>
+      <td><%= users.email %></td>
+      <td><%= users.id %></td>
+      <td><%= users.google_account_id %></td>
+      <td><%= users.role %></td>
+      <td><%= link_to "Show user info", users, class: 'btn btn-outline-warning' %>
+    </tr>
+    <% end %>
+    <tbody>
+  </table>
+<%= link_to "New users", new_user_path, class: 'btn btn-outline-warning' %>

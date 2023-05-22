@@ -20,3 +20,10 @@ Ticket.create(
   star_rating: 4,
   comment: 'This is an urgent bug that needs to be fixed'
 )
+
+Report.create(
+  supervisor_id: 1, # Replace with the actual supervisor ID
+  report_type: 'Executive Performance',
+  date: Date.today,
+  data: 'Executive performance metrics for the month of May',
+)

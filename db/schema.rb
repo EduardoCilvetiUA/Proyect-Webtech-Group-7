@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_22_004547) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_22_015359) do
   create_table "administrators", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -40,7 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_22_004547) do
   end
 
   create_table "tickets", force: :cascade do |t|
-    t.integer "ticket_id"
     t.integer "user_id"
     t.integer "executive_id"
     t.integer "supervisor_id"
