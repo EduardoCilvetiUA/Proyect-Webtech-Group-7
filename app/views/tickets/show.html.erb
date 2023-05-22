@@ -1,0 +1,12 @@
+#<h1><%= @ticket.title %></h1>
+#<p>Description: <%= @ticket.description %></p>
+#<!-- Display other ticket information -->
+<p style="color: green"><%= notice %></p>
+<%= render @ticket %>
+
+<div>
+  <%= link_to "Edit this ticket", edit_ticket_path(@ticket) %> |
+  <%= link_to "Back to tickets", tickets_path %>
+
+  <%= button_to "Destroy this ticket", @ticket, method: :delete %>
+</div>

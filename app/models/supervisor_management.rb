@@ -1,0 +1,2 @@
+class SupervisorManagement < ApplicationRecord
+end
