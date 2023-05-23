@@ -6,24 +6,18 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-admin_user = User.create(name: 'Administrator', email: 'admin@example.com', role: 'Administrator')
-executive_user = User.create(name: 'Support Executive', email: 'executive@example.com', role: 'Support Executive')
-supervisor_user = User.create(name: 'Supervisor', email: 'supervisor@example.com', role: 'Supervisor')
-registered_user1 = User.create(name: 'John Doe', email: 'john@example.com', role: 'Registered User')
-registered_user2 = User.create(name: 'Jane Smith', email: 'jane@example.com', role: 'Registered User')
-Ticket.create(
-  title: 'Bug Fix',
-  description: 'Fix the issue with the login functionality',
-  priority: 'High',
-  due_date: Date.today + 7,
-  status: 'Open',
-  star_rating: 4,
-  comment: 'This is an urgent bug that needs to be fixed'
-)
-
-Report.create(
-  supervisor_id: 1, # Replace with the actual supervisor ID
-  report_type: 'Executive Performance',
-  date: Date.today,
-  data: 'Executive performance metrics for the month of May',
-)
+admin_user = User.create(name: 'Administrator', email: 'admin@example.com', google_account_id: 1,  role: 'Administrator', password: 'password')
+executive_user = User.create(name: 'Support Executive', email: 'executive@example.com',google_account_id: 2, role: 'Support Executive', password: 'password')
+supervisor_user = User.create(name: 'Supervisor', email: 'supervisor@example.com',google_account_id: 3, role: 'Supervisor', password: 'password')
+registered_user1 = User.create(name: 'John Doe', email: 'john@example.com', google_account_id: 4,role: 'Registered User', password: 'password')
+registered_user2 = User.create(name: 'Jane Smith', email: 'jane@example.com', google_account_id: 5,role: 'Registered User', password: 'password')
+Report.create(report_id: 1, supervisor_id: 1, report_type: "Type A", date: Date.today, data: "Sample report data")
+Report.create(report_id: 2, supervisor_id: 2, report_type: "Type B", date: Date.today, data: "Another report data")
+Report.create(report_id: 3, supervisor_id: 1, report_type: "Type C", date: Date.today, data: "Additional report data")
+Report.create(report_id: 4, supervisor_id: 3, report_type: "Type A", date: Date.today, data: "More report data")
+Report.create(report_id: 5, supervisor_id: 2, report_type: "Type B", date: Date.today, data: "Extra report data")
+Ticket.create(user_id: 1, executive_id: 2, supervisor_id: 3, title: "Ticket A", description: "Sample ticket description", priority: "High", due_date: Date.today + 7.days, status: "Open", star_rating: 4, comment: "Ticket comment")
+Ticket.create(user_id: 2, executive_id: 3, supervisor_id: 1, title: "Ticket B", description: "Another ticket description", priority: "Medium", due_date: Date.today + 5.days, status: "In Progress", star_rating: 5, comment: "Another ticket comment")
+Ticket.create(user_id: 3, executive_id: 1, supervisor_id: 2, title: "Ticket C", description: "Additional ticket description", priority: "Low", due_date: Date.today + 10.days, status: "Closed", star_rating: 3, comment: "Additional ticket comment")
+Ticket.create(user_id: 2, executive_id: 3, supervisor_id: 1, title: "Ticket D", description: "More ticket description", priority: "High", due_date: Date.today + 3.days, status: "Open", star_rating: 4, comment: "More ticket comment")
+Ticket.create(user_id: 1, executive_id: 2, supervisor_id: 3, title: "Ticket E", description: "Extra ticket description", priority: "Medium", due_date: Date.today + 8.days, status: "In Progress", star_rating: 2, comment: "Extra ticket comment")
