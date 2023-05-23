@@ -31,10 +31,11 @@
     <%= form.text_field :password %>
   </div>
 
-  <div>
-    <%= form.label :role, style: "display: block" %>
-    <%= form.text_field :role %>
+  <div class="form-group">
+    <%= form.label :role %>
+    <%= form.select :role, ['Registered User', 'Supervisor', 'Support Executive', 'Administrator', 'Support Managment'], {}, class: 'form-control' %>
   </div>
+
 
   <div>
     <%= form.submit %>

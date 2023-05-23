@@ -11,10 +11,6 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :ticket_id, style: "display: block" %>
-    <%= form.number_field :ticket_id %>
-  </div>
 
   <div>
     <%= form.label :user_id, style: "display: block" %>
@@ -41,9 +37,9 @@
     <%= form.text_area :description %>
   </div>
 
-  <div>
-    <%= form.label :priority, style: "display: block" %>
-    <%= form.text_field :priority %>
+  <div class="form-group">
+    <%= form.label :priority %>
+    <%= form.select :priority, ['High', 'Medium', 'Low'], {}, class: 'form-control' %>
   </div>
 
   <div>
@@ -51,9 +47,9 @@
     <%= form.date_field :due_date %>
   </div>
 
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+  <div class="form-group">
+    <%= form.label :status %>
+    <%= form.select :status, ['Open', 'In Progress', 'Closed'], {}, class: 'form-control' %>
   </div>
 
   <div>
