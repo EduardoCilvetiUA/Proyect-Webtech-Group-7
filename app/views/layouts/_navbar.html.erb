@@ -33,6 +33,33 @@
   </div>
 </nav>
 
+<style>
+  /* Estilos personalizados para los resultados del buscador */
+  #search-results {
+    max-height: 300px; /* Ajusta la altura máxima según tus preferencias */
+    overflow-y: auto; /* Añade una barra de desplazamiento vertical si hay muchos resultados */
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+
+  .dropdown-header {
+    font-weight: bold;
+  }
+
+  .search-result-item {
+    padding: 5px;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .search-result-item:hover {
+    background-color: #f5f5f5;
+  }
+</style>
+
 <script>
   document.getElementById('search-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Evita la recarga de la página
@@ -61,7 +88,7 @@
         .catch(function(error) {
           console.log('Error:', error);
         });
-    }     else {
+    } else {
       hideSearchResults();
     }
   }
@@ -74,13 +101,13 @@
       results.forEach(function(result) {
         var ticketLink = document.createElement('a');
         ticketLink.href = '/tickets/' + result.id; // Reemplaza con la URL adecuada para acceder al ticket
-        ticketLink.classTitle = 'dropdown-item';
+        ticketLink.classList.add('dropdown-item', 'search-result-item'); // Agrega las clases CSS
         ticketLink.textContent = result.title;
         resultsList.appendChild(ticketLink);
       });
     } else {
       var noResultsMessage = document.createElement('div');
-      noResultsMessage.classTitle = 'dropdown-item';
+      noResultsMessage.classList.add('dropdown-item', 'search-result-item'); // Agrega las clases CSS
       noResultsMessage.textContent = 'No tickets found';
       resultsList.appendChild(noResultsMessage);
     }
