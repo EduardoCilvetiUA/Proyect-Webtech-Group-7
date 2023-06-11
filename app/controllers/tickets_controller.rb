@@ -58,6 +58,15 @@ class TicketsController < ApplicationController
     end
   end
 
+  def search
+    # Lógica para buscar tickets basada en el parámetro "search"
+    @tickets = Ticket.search(params[:search])
+  
+    respond_to do |format|
+      format.json { render json: @tickets }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket

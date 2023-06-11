@@ -18,5 +18,77 @@
         <%= link_to 'Tickets', tickets_path, class: 'nav-link' %>
       </li>
     </ul>
+    <form id="search-form" class="form-inline">
+      <div class="input-group">
+        <%= text_field_tag :search_term, nil, class: 'form-control', id: 'search-term', placeholder: 'Search tickets' %>
+        <div class="input-group-append">
+          <button id="search-button" class="btn btn-outline-light" type="submit">Search</button>
+        </div>
+      </div>
+      <div id="search-results" class="dropdown-menu dropdown-menu-right mt-2" aria-labelledby="search-button">
+        <div class="dropdown-header">Ticket Results</div>
+        <div id="search-results-list"></div>
+      </div>
+    </form>
   </div>
 </nav>
+
+<script>
+  document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evita la recarga de la página
+
+    var searchInput = document.getElementById('search-term').value.trim();
+
+    searchTickets(searchInput);
+  });
+
+  document.getElementById('search-term').addEventListener('input', function() {
+    var searchInput = this.value.trim();
+
+    searchTickets(searchInput);
+  });
+
+  function searchTickets(searchTerm) {
+    if (searchTerm.length > 0) {
+      fetch('<%= ticket_search_path %>?search=' + searchTerm)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          // Muestra los resultados en el dropdown
+          showSearchResults(data);
+        })
+        .catch(function(error) {
+          console.log('Error:', error);
+        });
+    }     else {
+      hideSearchResults();
+    }
+  }
+
+  function showSearchResults(results) {
+    var resultsList = document.getElementById('search-results-list');
+    resultsList.innerHTML = ''; // Borra los resultados anteriores
+
+    if (results.length > 0) {
+      results.forEach(function(result) {
+        var ticketLink = document.createElement('a');
+        ticketLink.href = '/tickets/' + result.id; // Reemplaza con la URL adecuada para acceder al ticket
+        ticketLink.classTitle = 'dropdown-item';
+        ticketLink.textContent = result.title;
+        resultsList.appendChild(ticketLink);
+      });
+    } else {
+      var noResultsMessage = document.createElement('div');
+      noResultsMessage.classTitle = 'dropdown-item';
+      noResultsMessage.textContent = 'No tickets found';
+      resultsList.appendChild(noResultsMessage);
+    }
+
+    document.getElementById('search-results').classList.add('show');
+  }
+
+  function hideSearchResults() {
+    document.getElementById('search-results').classList.remove('show');
+  }
+</script>
