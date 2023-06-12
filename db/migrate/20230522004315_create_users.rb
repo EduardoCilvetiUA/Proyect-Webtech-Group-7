@@ -5,7 +5,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :email
       t.string :google_account_id
       t.string :password
-      t.string :role
+      t.string :role, default: "normal"
 
       t.timestamps
     end

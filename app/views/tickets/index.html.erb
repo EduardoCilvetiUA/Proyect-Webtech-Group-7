@@ -6,15 +6,14 @@
     <thead>
     <tr>
       <th>ID</th>
-      <th>Executive ID</th>
-      <th>Supervisor ID</th>
+      <th>Executive name</th>
+      <th>Supervisor name</th>
       <th>Title</th>
       <th>Description</th>
       <th>Priority</th>
       <th>Due Date</th>
       <th>Status</th>
       <th>Star rating</th>
-      <th>Comment</th>
       <th>Created at</th>
       <th></th>
     </tr>
@@ -22,15 +21,14 @@
       <% @tickets.each do |tickets| %>
     <tr>
       <td><%= tickets.id %></td>
-      <td><%= tickets.executive_id %></td>
-      <td><%= tickets.supervisor_id %></td>
+      <td><%= tickets.executive.name %></td>
+      <td><%= tickets.supervisor.name %></td>
       <td><%= tickets.title %></td>
       <td><%= tickets.description %></td>
       <td><%= tickets.priority %></td>
       <td><%= tickets.due_date %></td>
       <td><%= tickets.status %></td>
       <td><%= tickets.star_rating %></td>
-      <td><%= tickets.comment %></td>
       <td><%= tickets.created_at %></td>
       <td><%= link_to "Show ticket info", tickets, class: 'btn btn-outline-warning' %>
     </tr>
