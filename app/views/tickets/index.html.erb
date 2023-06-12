@@ -19,6 +19,7 @@
     </tr>
     <tbody>
       <% @tickets.each do |tickets| %>
+      <% if current_user.role == 'admin' || (current_user.role == 'normal' && tickets.user_id == current_user.id) %>
     <tr>
       <td><%= tickets.id %></td>
       <td><%= tickets.executive.name %></td>
@@ -32,6 +33,7 @@
       <td><%= tickets.created_at %></td>
       <td><%= link_to "Show ticket info", tickets, class: 'btn btn-outline-warning' %>
     </tr>
+    <% end %>
     <% end %>
     <tbody>
   </table>
