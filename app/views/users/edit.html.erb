@@ -1,6 +1,5 @@
-<% if current_user.role == 'admin' %>
+<% if current_user.role == 'admin' || current_user.role == 'super' %>
 <h1>Editing user</h1>
-
 <%= render "form", user: @user %>
 
 <br>

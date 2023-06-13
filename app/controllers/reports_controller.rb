@@ -4,23 +4,32 @@ class ReportsController < ApplicationController
   # GET /reports or /reports.json
   def index
     @reports = Report.all
+    authorize! :read, @report
+
   end
 
   # GET /reports/1 or /reports/1.json
   def show
+    authorize! :read, @report
   end
 
   # GET /reports/new
   def new
     @report = Report.new
+    authorize! :read, @report
+
   end
 
   # GET /reports/1/edit
   def edit
+    authorize! :read, @report
+
   end
 
   # POST /reports or /reports.json
   def create
+    authorize! :read, @report
+
     @report = Report.new(report_params)
 
     respond_to do |format|
@@ -50,6 +59,7 @@ class ReportsController < ApplicationController
   # DELETE /reports/1 or /reports/1.json
   def destroy
     @report.destroy
+    authorize! :read, @report
 
     respond_to do |format|
       format.html { redirect_to reports_url, notice: "Report was successfully destroyed." }

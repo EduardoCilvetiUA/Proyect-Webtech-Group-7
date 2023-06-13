@@ -4,24 +4,34 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    authorize! :read, @report
+
   end
 
   # GET /users/1 or /users/1.json
   def show
+    authorize! :read, @report
+
   end
 
   # GET /users/new
   def new
     @user = User.new
+    authorize! :read, @report
+
   end
 
   # GET /users/1/edit
   def edit
+    authorize! :read, @report
+
   end
 
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
+    authorize! :read, @report
+
 
     respond_to do |format|
       if @user.save
@@ -50,6 +60,8 @@ class UsersController < ApplicationController
   # DELETE /users/1 or /users/1.json
   def destroy
     @user.destroy
+    authorize! :read, @report
+
 
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }

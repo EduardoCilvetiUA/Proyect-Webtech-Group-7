@@ -1,4 +1,4 @@
-<% if current_user.role == 'admin' %>
+<% if current_user.role == 'admin' || current_user.role == 'super' %>
 <p style="color: green"><%= notice %></p>
 
 <%= render @user %>

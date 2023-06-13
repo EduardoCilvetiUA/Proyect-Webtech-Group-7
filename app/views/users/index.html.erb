@@ -1,4 +1,4 @@
-<% if current_user.role == 'admin' %>
+<% if current_user.role == 'admin' || current_user.role == 'super' %>
 <p style="color: green"><%= notice %></p>
 
 <h1>Users</h1>
@@ -16,13 +16,15 @@
     <tbody>
       <% @users.each do |users| %>
     <tr>
+    <% if users.role != 'admin' %>
       <td><%= users.name %></td>
       <td><%= users.email %></td>
       <td><%= users.id %></td>
       <td><%= users.google_account_id %></td>
       <td><%= users.role %></td>
       <td><%= link_to "Show user info", users, class: 'btn btn-outline-warning' %>
-    </tr>
+    <% end %>
+      </tr>
     <% end %>
     <tbody>
   </table>

@@ -1,4 +1,4 @@
-<% if current_user.role == 'admin' %>
+<% if current_user.role == 'admin' || current_user.role == 'super' %>
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
@@ -34,7 +34,7 @@
 
   <div class="form-group">
     <%= form.label :role %>
-    <%= form.select :role, ['Registered User', 'Supervisor', 'Support Executive', 'Administrator', 'Support Managment'], {}, class: 'form-control' %>
+    <%= form.select :role, ['normal', 'super', 'exec'], {}, class: 'form-control' %>
   </div>
 
 

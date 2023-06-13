@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
     has_many :tickets
     has_one :supervisor_management
     has_one :executive
@@ -20,6 +21,5 @@ class User < ApplicationRecord
 
     def set_default_role
         self.role ||= :normal
-    end
-    
+    end    
 end
