@@ -3,8 +3,9 @@
 <%= render @ticket %>
 
 <div>
-  <%= link_to "Edit this ticket", edit_ticket_path(@ticket), class: 'btn btn-outline-warning' %> |
+  <% unless current_user.role == 'normal' %>
+    <%= link_to "Edit this ticket", edit_ticket_path(@ticket), class: 'btn btn-outline-warning' %> |
+    <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
+  <% end %>
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
-
-  <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
 </div>

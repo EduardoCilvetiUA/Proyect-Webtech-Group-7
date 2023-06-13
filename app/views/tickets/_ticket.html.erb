@@ -4,54 +4,87 @@
     <%= ticket.id %>
   </p>
 
-  <p>
+  <% if current_user.role == 'normal' %>
+    <p>
+      <strong>Title:</strong>
+      <%= ticket.title %>
+    </p>
+
     <strong>User:</strong>
-    <%= ticket.user_id %>
-  </p>
+      <%= ticket.user.name %>
+    </p>
 
-  <p>
-    <strong>Executive:</strong>
-    <%= ticket.executive_id %>
-  </p>
+    <p>
+      <strong>Description:</strong>
+      <%= ticket.description %>
+    </p>
 
-  <p>
-    <strong>Supervisor:</strong>
-    <%= ticket.supervisor_id %>
-  </p>
+    <p>
+      <strong>Due date:</strong>
+      <%= ticket.due_date %>
+    </p>
 
-  <p>
-    <strong>Title:</strong>
-    <%= ticket.title %>
-  </p>
+    <p>
+      <strong>Status:</strong>
+      <%= ticket.status %>
+    </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= ticket.description %>
-  </p>
+    <p>
+      <strong>Star rating:</strong>
+      <%= ticket.star_rating %>
+    </p>
 
-  <p>
-    <strong>Priority:</strong>
-    <%= ticket.priority %>
-  </p>
+    <p>
+      <strong>Comment:</strong>
+      <%= ticket.comment %>
+    </p>
 
-  <p>
-    <strong>Due date:</strong>
-    <%= ticket.due_date %>
-  </p>
+  <% else %>
 
-  <p>
-    <strong>Status:</strong>
-    <%= ticket.status %>
-  </p>
+    <p>
+      <strong>User:</strong>
+      <%= ticket.user.name %>
+    </p>
 
-  <p>
-    <strong>Star rating:</strong>
-    <%= ticket.star_rating %>
-  </p>
+    <p>
+      <strong>Executive:</strong>
+      <%= ticket.executive.name %>
+    </p>
 
-  <p>
-    <strong>Comment:</strong>
-    <%= ticket.comment %>
-  </p>
+    <p>
+      <strong>Supervisor:</strong>
+      <%= ticket.supervisor.name %>
+    </p>
 
-</div>
+    <p>
+      <strong>Title:</strong>
+      <%= ticket.title %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= ticket.description %>
+    </p>
+
+    <p>
+      <strong>Priority:</strong>
+      <%= ticket.priority %>
+    </p>
+
+    <p>
+      <strong>Due date:</strong>
+      <%= ticket.due_date %>
+    </p>
+
+    <p>
+      <strong>Status:</strong>
+      <%= ticket.status %>
+    </p>
+
+    <p>
+      <strong>Star rating:</strong>
+      <%= ticket.star_rating %>
+    </p>
+
+    <p>
+    <%end  %>

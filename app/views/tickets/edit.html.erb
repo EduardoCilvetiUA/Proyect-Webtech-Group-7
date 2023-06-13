@@ -1,3 +1,5 @@
+<%if current_user.role == 'admin'  %>
+
 <h1>Editing ticket</h1>
 
 <%= render "form", ticket: @ticket %>
@@ -8,3 +10,9 @@
   <%= link_to "Show this ticket", @ticket, class: 'btn btn-outline-warning' %> |
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
 </div>
+
+<%else %>
+<script>
+window.location.href =  "/";
+</script>
+<%end %>
