@@ -6,6 +6,16 @@
   <% unless current_user.role == 'normal' %>
     <%= link_to "Edit this ticket", edit_ticket_path(@ticket), class: 'btn btn-outline-warning' %> |
     <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
+  <% else %>
+    <% if @ticket.status == 'Closed' %>
+      <%= form_with(model: @ticket) do |form| %>
+        <div class="form-group">
+          <%= form.label :star_rating %>
+          <%= form.select :star_rating, (1..5), {}, class: 'form-control', style: "width: 50px; background-color: transparent; color: rgb(198, 151, 73);" %>
+        </div>
+        <%= form.submit "Update star rating", class: 'btn btn-outline-warning' %>
+      <% end %>
+    <% end %>
   <% end %>
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
 </div>

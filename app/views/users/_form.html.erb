@@ -1,3 +1,4 @@
+<% if current_user.role == 'admin' %>
 <%= form_with(model: user) do |form| %>
   <% if user.errors.any? %>
     <div style="color: red">
@@ -40,4 +41,7 @@
   <div>
     <%= form.submit %>
   </div>
+<% end %>
+<% else %>
+  <p style="color: red">You cannot access this data as a normal user.</p>
 <% end %>

@@ -1,3 +1,4 @@
+<% if current_user.role == 'admin' %>
 <p style="color: green"><%= notice %></p>
 
 <h1>Users</h1>
@@ -26,3 +27,6 @@
     <tbody>
   </table>
 <%= link_to "New users", new_user_path, class: 'btn btn-outline-warning' %>
+<% else %>
+  <p style="color: red">You cannot access this data as a normal user.</p>
+<% end %>

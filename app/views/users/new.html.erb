@@ -1,3 +1,4 @@
+<% if current_user.role == 'admin' %>
 <h1>New user</h1>
 
 <%= render "form", user: @user %>
@@ -7,3 +8,6 @@
 <div>
   <%= link_to "Back to users", users_path, class: 'btn btn-outline-warning' %>
 </div>
+<% else %>
+  <p style="color: red">You cannot access this data as a normal user.</p>
+<% end %>
