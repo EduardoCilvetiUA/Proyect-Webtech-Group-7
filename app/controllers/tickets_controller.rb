@@ -4,12 +4,15 @@ class TicketsController < ApplicationController
   # GET /tickets or /tickets.json
   def index
     @tickets = Ticket.all
+    if params[:sort] == 'date'
+      @tickets = @tickets.order(created_at: :asc)
+    end
   end
 
   # GET /tickets/1 or /tickets/1.json
   def show
     @ticket = Ticket.find(params[:id])
-    authorize! :read, @post
+    authorize! :read, @ticket
   end
 
   # GET /tickets/new
@@ -24,6 +27,12 @@ class TicketsController < ApplicationController
   # POST /tickets or /tickets.json
   def create
     @ticket = Ticket.new(ticket_params)
+    @ticket.user_id = current_user.id
+    @ticket.executive_id = 1
+    @ticket.supervisor_id = 1
+    @ticket.status = 'Open'
+    @ticket.priority = 'Low'
+    @ticket.execrandoms = rand(1..4)
 
     respond_to do |format|
       if @ticket.save
@@ -61,10 +70,21 @@ class TicketsController < ApplicationController
 
   def search
     # Lógica para buscar tickets basada en el parámetro "search"
-    @tickets = Ticket.search(params[:search])
-  
+    if current_user.role == 'normal'
+      @tickets = current_user.tickets.search(params[:search])
+    else
+      @tickets = Ticket.search(params[:search])
+    end
+    
     respond_to do |format|
       format.json { render json: @tickets }
+    end
+  end
+
+  def sort_by_date
+    @tickets = Ticket.order(created_at: :desc)
+    respond_to do |format|
+      format.js
     end
   end
 

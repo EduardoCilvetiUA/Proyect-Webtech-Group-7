@@ -1,5 +1,4 @@
 <% if current_user.role == 'admin' || current_user.role == 'super' %>
-<p style="color: green"><%= notice %></p>
 
 <%= render @report %>
 
@@ -10,5 +9,5 @@
   <%= button_to "Destroy this report", @report, method: :delete, class: 'btn btn-outline-warning' %>
 </div>
 <% else %>
-  <p style="color: red">You cannot access this data as a normal user.</p>
+  <p class="alert alert-danger" role="alert">You cannot access this data as a normal user.</p>
 <% end %>

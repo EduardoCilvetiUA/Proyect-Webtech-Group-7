@@ -1,16 +1,14 @@
-<p style="color: green"><%= notice %></p>
-
 <h1>Tickets</h1>
 
 <table class="table-bordered">
   <thead>
     <tr>
       <th>ID</th>
-      <th>Executive name</th>
-      <th>Supervisor name</th>
       <th>Title</th>
       <th>Description</th>
-      <th>Priority</th>
+      <% if current_user.role != 'normal' %>
+        <th>Priority</th>
+      <% end %>
       <th>Due Date</th>
       <th>Status</th>
       <th>Star rating</th>
@@ -23,11 +21,11 @@
       <% if current_user.role == 'admin' || current_user.role == 'super' || current_user.role == 'normal' && ticket.user_id == current_user.id || current_user.role == 'exec' && ticket.execrandoms == current_user.execrandoms %>
       <tr>
           <td><%= ticket.id %></td>
-          <td><%= ticket.executive.name %></td>
-          <td><%= ticket.supervisor.name %></td>
           <td><%= ticket.title %></td>
           <td><%= ticket.description %></td>
-          <td><%= ticket.priority %></td>
+          <% if current_user.role != 'normal' %>
+            <td><%= ticket.priority %></td>
+          <% end %>
           <td><%= ticket.due_date %></td>
           <td><%= ticket.status %></td>
           <td><%= ticket.star_rating %></td>

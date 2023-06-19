@@ -10,6 +10,8 @@ class ReportsController < ApplicationController
 
   # GET /reports/1 or /reports/1.json
   def show
+    @report = Report.find(params[:id])
+
     authorize! :read, @report
   end
 
@@ -31,6 +33,7 @@ class ReportsController < ApplicationController
     authorize! :read, @report
 
     @report = Report.new(report_params)
+    @report.supervisor_id = current_user.id
 
     respond_to do |format|
       if @report.save
@@ -75,6 +78,6 @@ class ReportsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def report_params
-      params.require(:report).permit(:report_id, :supervisor_id, :report_type, :date, :data)
+      params.require(:report).permit(:report_id, :executive_id, :supervisor_id, :report_type, :date, :data)
     end
 end

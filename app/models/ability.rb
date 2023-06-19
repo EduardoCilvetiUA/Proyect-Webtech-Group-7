@@ -17,6 +17,7 @@ class Ability
 
     if user.role == 'admin'
       can :manage, :all
+      can :create, User
     end
 
     if user.role == 'exec'

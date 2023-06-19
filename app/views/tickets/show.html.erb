@@ -1,11 +1,26 @@
 <h1><%= @ticket.title %></h1>
-<p style="color: green"><%= notice %></p>
 <%= render @ticket %>
 
 <div>
-  <% unless current_user.role == 'normal' %>
-    <%= link_to "Edit this ticket", edit_ticket_path(@ticket), class: 'btn btn-outline-warning' %> |
-    <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
+  <% if current_user.role == 'normal' %>
+    <% if @ticket.status == 'Closed' %>
+      <div class="d-flex align-items-center mb-3">
+        <div id="star-rating-form" class="mr-2">
+          <%= form_with(model: @ticket, remote: true) do |form| %>
+            <div class="form-group">
+              <%= form.label :star_rating %>
+              <%= form.select :star_rating, (1..5), {}, class: 'form-control', style: "width: 50px; background-color: transparent; color: rgb(198, 151, 73);" %>
+            </div>
+        </div>
+        <%= form.submit "Update star rating", class: 'btn btn-outline-warning' %>
+        <% end %>
+      </div>
+      <div id="star-rating-message"></div>
+    <% end %>
+    <div class="d-inline-block">
+      <%= link_to "Edit this ticket", edit_ticket_path(@ticket), class: 'btn btn-outline-warning mr-2' %>
+      <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
+    </div>
   <% else %>
     <% if @ticket.status == 'Closed' %>
       <%= form_with(model: @ticket) do |form| %>
@@ -17,5 +32,34 @@
       <% end %>
     <% end %>
   <% end %>
+
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#star-rating-form').on('submit', function(event) {
+      event.preventDefault(); // Evita el envío del formulario
+
+      var form = $(this);
+      var url = form.attr('action');
+      var method = form.attr('method');
+      var data = form.serialize();
+
+      $.ajax({
+        url: url,
+        method: method,
+        data: data,
+        dataType: 'json',
+        success: function(response) {
+          // Actualiza el mensaje de éxito o muestra cualquier otra lógica necesaria
+          $('#star-rating-message').text('Star rating updated successfully');
+        },
+        error: function(xhr, status, error) {
+          // Maneja errores si es necesario
+          $('#star-rating-message').text('Error updating star rating');
+        }
+      });
+    });
+  });
+</script>

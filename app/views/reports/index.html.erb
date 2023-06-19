@@ -1,32 +1,36 @@
 <% if current_user.role == 'admin' || current_user.role == 'super' %>
-<p style="color: green"><%= notice %></p>
 
-<h1>Reports</h1>
+  <h1>Reports</h1>
 
   <table class="table-bordered">
     <thead>
-    <tr>
-      <th>ID</th>
-      <th>Supervisor ID</th>
-      <th>Report Type</th>
-      <th>Created at</th>
-      <th>Data</th>
-      <th></th>
-    </tr>
+      <tr>
+        <th>ID</th>
+        <th>Executive name</th>
+        <th>Report Type</th>
+        <th>Created at</th>
+        <th>Data</th>
+        <th></th>
+      </tr>
+    </thead>
     <tbody>
-      <% @reports.each do |reports| %>
-    <tr>
-      <td><%= reports.id %></td>
-      <td><%= reports.supervisor_id %></td>
-      <td><%= reports.report_type %></td>
-      <td><%= reports.created_at %></td>
-      <td><%= reports.data %></td>
-      <td><%= link_to "Show user info", reports, class: 'btn btn-outline-warning' %>
-    </tr>
-    <% end %>
-    <tbody>
+      <% @reports.each do |report| %>
+        <% if report.supervisor_id == current_user.id || current_user.role == 'admin'%>
+          <tr>
+            <td><%= report.id %></td>
+            <td><%= report.executive.name %></td>
+            <td><%= report.report_type %></td>
+            <td><%= report.created_at %></td>
+            <td><%= report.data %></td>
+            <td><%= link_to "Show user info", report, class: 'btn btn-outline-warning' %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
   </table>
-<%= link_to "New reports", new_report_path, class: 'btn btn-outline-warning' %>
+
+  <%= link_to "New report", new_report_path, class: 'btn btn-outline-warning' %>
+
 <% else %>
   <p style="color: red">You cannot access this data as a normal user.</p>
 <% end %>

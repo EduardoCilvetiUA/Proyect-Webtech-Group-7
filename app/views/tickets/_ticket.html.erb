@@ -1,14 +1,10 @@
 <div id="<%= dom_id ticket %>">
   <p>
-    <strong>Ticket:</strong>
-    <%= ticket.id %>
+    <strong>Title:</strong>
+    <%= ticket.title %>
   </p>
 
   <% if current_user.role == 'normal' %>
-    <p>
-      <strong>Title:</strong>
-      <%= ticket.title %>
-    </p>
 
     <strong>User:</strong>
       <%= ticket.user.name %>
@@ -29,15 +25,12 @@
       <%= ticket.status %>
     </p>
 
-    <p>
-      <strong>Star rating:</strong>
-      <%= ticket.star_rating %>
-    </p>
-
-    <p>
-      <strong>Comment:</strong>
-      <%= ticket.comment %>
-    </p>
+    <% if ticket.status == 'Closed' %>
+      <p>
+        <strong>Star rating:</strong>
+        <%= ticket.star_rating %>
+      </p>
+    <% end %>
 
   <% else %>
 
@@ -54,11 +47,6 @@
     <p>
       <strong>Supervisor:</strong>
       <%= ticket.supervisor.name %>
-    </p>
-
-    <p>
-      <strong>Title:</strong>
-      <%= ticket.title %>
     </p>
 
     <p>
@@ -81,10 +69,13 @@
       <%= ticket.status %>
     </p>
 
-    <p>
-      <strong>Star rating:</strong>
-      <%= ticket.star_rating %>
-    </p>
+
+    <% if ticket.status == 'Closed' %>
+      <p>
+        <strong>Star rating:</strong>
+        <%= ticket.star_rating %>
+      </p>
+    <% end %>
 
     <p>
     <%end  %>

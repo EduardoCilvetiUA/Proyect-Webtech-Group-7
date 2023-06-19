@@ -1,6 +1,6 @@
 <%= form_with(model: report) do |form| %>
   <% if report.errors.any? %>
-    <div style="color: red">
+    <div class="alert alert-danger" role="alert">
       <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
 
       <ul>
@@ -11,10 +11,9 @@
     </div>
   <% end %>
 
-
   <div>
-    <%= form.label :supervisor_id, style: "display: block" %>
-    <%= form.number_field :supervisor_id %>
+    <%= form.label :executive_id, style: "display: block" %>
+    <%= form.number_field :executive_id %>
   </div>
 
   <div>

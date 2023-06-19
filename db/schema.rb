@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_13_022306) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_221236) do
   create_table "administrators", force: :cascade do |t|
     t.integer "user_id"
     t.datetime "created_at", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_13_022306) do
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "executive_id"
   end
 
   create_table "supervisor_managements", force: :cascade do |t|
