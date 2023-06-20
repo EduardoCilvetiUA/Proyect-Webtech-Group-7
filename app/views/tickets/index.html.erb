@@ -1,5 +1,11 @@
 <h1>Tickets</h1>
 
+<div class="btn-group" role="group">
+  <%= link_to "Sort by Date", tickets_path(sort: "date"), class: 'btn btn-outline-primary' %>
+  <%= link_to "Open Tickets", tickets_path(status: "Open"), class: 'btn btn-outline-primary' %>
+  <%= link_to "Closed Tickets", tickets_path(status: "Closed"), class: 'btn btn-outline-primary' %>
+</div>
+<p></p>
 <table class="table-bordered">
   <thead>
     <tr>
@@ -19,7 +25,7 @@
   <tbody>
     <% @tickets.each do |ticket| %>
       <% if current_user.role == 'admin' || current_user.role == 'super' || current_user.role == 'normal' && ticket.user_id == current_user.id || current_user.role == 'exec' && ticket.execrandoms == current_user.execrandoms %>
-      <tr>
+        <tr>
           <td><%= ticket.id %></td>
           <td><%= ticket.title %></td>
           <td><%= ticket.description %></td>
@@ -37,4 +43,4 @@
   </tbody>
 </table>
 
-<%= link_to "New tickets", new_ticket_path, class: 'btn btn-outline-warning' %>
+<%= link_to "New Ticket", new_ticket_path, class: 'btn btn-outline-warning' %>

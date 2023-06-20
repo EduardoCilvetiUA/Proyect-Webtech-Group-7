@@ -3,9 +3,13 @@ class TicketsController < ApplicationController
 
   # GET /tickets or /tickets.json
   def index
-    @tickets = Ticket.all
+    if params[:status] == 'Open' || params[:status] == 'Closed'
+      @tickets = Ticket.all.where(status: params[:status])
+    else
+      @tickets = Ticket.all
+    end
     if params[:sort] == 'date'
-      @tickets = @tickets.order(created_at: :asc)
+      @tickets = Ticket.order(due_date: :asc)
     end
   end
 

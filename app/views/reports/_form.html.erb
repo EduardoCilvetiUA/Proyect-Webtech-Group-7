@@ -1,4 +1,4 @@
-<%= form_with(model: report) do |form| %>
+<%= form_with(model: report, class: "form") do |form| %>
   <% if report.errors.any? %>
     <div class="alert alert-danger" role="alert">
       <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :executive_id, style: "display: block" %>
-    <%= form.number_field :executive_id %>
+  <div class="form-group">
+    <%= form.label :executive_id %>
+    <%= form.number_field :executive_id, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :report_type, style: "display: block" %>
-    <%= form.text_field :report_type %>
+  <div class="form-group">
+    <%= form.label :report_type %>
+    <%= form.text_field :report_type, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :date, style: "display: block" %>
-    <%= form.date_field :date %>
+  <div class="form-group">
+    <%= form.label :date %>
+    <%= form.date_field :date, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.label :data, style: "display: block" %>
-    <%= form.text_area :data %>
+  <div class="form-group">
+    <%= form.label :data %>
+    <%= form.text_area :data, class: "form-control" %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
 <% end %>
