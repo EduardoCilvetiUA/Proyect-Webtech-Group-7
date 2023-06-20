@@ -34,7 +34,11 @@
           <% end %>
           <td><%= ticket.due_date %></td>
           <td><%= ticket.status %></td>
-          <td><%= ticket.star_rating %></td>
+          <% if ticket.star_rating.present? %>
+            <td><%= ticket.star_rating %></td>
+          <% else %>
+            <td>[Not closed to rate]</td>
+          <% end %>
           <td><%= ticket.created_at %></td>
           <td><%= link_to "Show ticket info", ticket, class: 'btn btn-outline-warning' %></td>
         </tr>

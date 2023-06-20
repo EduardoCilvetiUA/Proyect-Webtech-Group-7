@@ -10,6 +10,7 @@ class Ability
     # Habilidades para el usuario normal
     if user.role == 'normal'
       can :read, Ticket
+      can :edit, Ticket, user_id: user.id
       can :create, Ticket
       can [:update, :destroy], Ticket, user_id: user.id
       cannot :manage, Report

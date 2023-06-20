@@ -9,7 +9,7 @@ class TicketsController < ApplicationController
       @tickets = Ticket.all
     end
     if params[:sort] == 'date'
-      @tickets = Ticket.order(due_date: :asc)
+      @tickets = Ticket.order(created_at: :asc)
     end
   end
 
@@ -29,6 +29,8 @@ class TicketsController < ApplicationController
 
   # GET /tickets/1/edit
   def edit
+    @ticket = Ticket.find(params[:id])
+    authorize! :edit, @ticket
   end
 
   # POST /tickets or /tickets.json
