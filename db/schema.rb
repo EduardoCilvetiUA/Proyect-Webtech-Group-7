@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_19_221236) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_19_231341) do
   create_table "administrators", force: :cascade do |t|
     t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer "ticket_id"
+    t.integer "user_creator_id"
+    t.string "role"
+    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

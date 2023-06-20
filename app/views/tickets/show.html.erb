@@ -1,4 +1,4 @@
-<h1><%= @ticket.title %></h1>
+<h1>Title: <%= @ticket.title %></h1>
 <%= render @ticket %>
 
 <div>
@@ -32,9 +32,37 @@
       <% end %>
     <% end %>
   <% end %>
+  
+  <h2>Comments</h2>
+
+  <% @comments.each do |comment| %>
+    <div class="comment-box">
+      <p>Created by: <%= comment.user_creator.name %> - <%= comment.role %></p>
+      <p><%= comment.data %></p>
+      <p>Created at: <%= comment.created_at %></p>
+    </div>
+  <% end %>
+  
+  <h3>Add a Comment</h3>
+  
+  <%= form_with(model: @new_comment, url: ticket_comments_path(@ticket)) do |form| %>
+    <%= form.hidden_field :ticket_id, value: @ticket.id %>
+    <%= form.hidden_field :user_creator_id, value: current_user.name %>
+    <%= form.hidden_field :role, value: current_user.role %>
+  
+    <div class="field">
+      <%= form.text_area :data, class: "form-control", id: "exampleFormControlTextarea1", rows: 4 %>
+    </div>
+      
+    <%= form.submit "Add Comment", class: 'btn btn-outline-warning'%>
+  <% end %>
+  
+
 
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
 </div>
+
+
 
 <script>
   $(document).ready(function() {

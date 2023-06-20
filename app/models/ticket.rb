@@ -3,6 +3,7 @@ class Ticket < ApplicationRecord
     belongs_to :user, class_name: 'User'
     belongs_to :executive, class_name: 'User'
     belongs_to :supervisor, class_name: 'User'
+    has_many :comments, dependent: :destroy
 
 
     validates :user_id, :executive_id, :supervisor_id, presence: true

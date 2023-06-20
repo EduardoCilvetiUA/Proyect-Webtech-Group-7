@@ -107,3 +107,10 @@ $border-radius: 10px;
   border-radius: $border-radius;
 }
 
+.comment-box {
+  background-color: #464749; /* Actualiza el color de fondo a negro (#000) */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
