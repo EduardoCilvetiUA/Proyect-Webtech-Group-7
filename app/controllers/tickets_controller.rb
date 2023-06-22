@@ -1,5 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :update_execrandom]
+
 
   # GET /tickets or /tickets.json
   def index
@@ -13,12 +14,23 @@ class TicketsController < ApplicationController
     end
   end
 
+
+ 
+  def upload_attachment
+    @ticket = Ticket.find(params[:id])
+    @ticket.attachments.attach(params[:ticket][:attachments])
+  
+    redirect_to @ticket, notice: 'File uploaded successfully.'
+  end
+  
+  
   # GET /tickets/1 or /tickets/1.json
   def show
     @ticket = Ticket.find(params[:id])
     @comments = @ticket.comments
     @new_comment = Comment.new
-  
+    @attachments = @ticket.attachments
+
     authorize! :read, @ticket
   end
 
@@ -50,6 +62,7 @@ class TicketsController < ApplicationController
       if @ticket.save
         format.html { redirect_to ticket_url(@ticket), notice: "Ticket was successfully created." }
         format.json { render :show, status: :created, location: @ticket }
+        @ticket.attachments.attach(params[:files])
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
@@ -100,6 +113,17 @@ class TicketsController < ApplicationController
     end
   end
 
+  def update_execrandom
+    execrandom_value = params[:ticket][:execrandoms]
+    
+    if (1..4).cover?(execrandom_value.to_i)
+      @ticket.update_column(:execrandoms, execrandom_value)
+      redirect_to @ticket, notice: 'Executive chnaged succesfully.'
+    else
+      redirect_to @ticket, alert: 'Invalid execrandom value.'
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
@@ -108,6 +132,7 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:ticket_id, :user_id, :executive_id, :supervisor_id, :title, :description, :priority, :due_date, :status, :star_rating, :comment)
+      params.require(:ticket).permit(:ticket_id, :user_id, :executive_id, :supervisor_id, :title, :description, :priority, :due_date, :status, :star_rating, :comment, :execrandoms, attachments:[])
     end
 end
+

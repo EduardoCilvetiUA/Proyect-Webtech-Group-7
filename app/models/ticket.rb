@@ -4,7 +4,9 @@ class Ticket < ApplicationRecord
     belongs_to :executive, class_name: 'User'
     belongs_to :supervisor, class_name: 'User'
     has_many :comments, dependent: :destroy
+    has_many_attached :attachments
 
+    
 
     validates :user_id, :executive_id, :supervisor_id, presence: true
     validates :title, :description, presence: true, length: { maximum: 255 }

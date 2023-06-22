@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
+
   devise_for :users
+  post "/rails/active_storage/direct_uploads", to: "active_storage/direct_uploads#create", as: "custom_direct_uploads"
+  
+
   get 'tickets/sort_by_date', to: 'tickets#sort_by_date', as: 'sort_by_date_tickets'
 
+  resources :tickets do
+    patch 'update_execrandom', on: :member
+    post 'upload_attachment', on: :member
+  end
+  
+
+  
   resources :users do
     member do
       patch :update_role_to_supervisor

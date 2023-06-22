@@ -1,4 +1,4 @@
-<%= form_with(model: ticket, class: "form") do |form| %>
+<%= form_with(model: ticket, class: "form", multipart: true) do |form| %>
   <% if ticket.errors.any? %>
     <div class="alert alert-danger" role="alert">
       <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
@@ -16,10 +16,10 @@
     <%= form.text_field :title, class: "form-control" %>
   </div>
 
-<div class="form-group">
-  <%= form.label :description %>
-  <%= form.text_area :description, class: "form-control", placeholder: "Enter a description here... (feel free to add links to any links to media you want to show us)" %>
-</div>
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control", placeholder: "Enter a description here..." %>
+  </div>
 
   <div class="form-group">
     <%= form.label :due_date, "Due date (2 weeks)" %>
@@ -27,6 +27,13 @@
   </div>
 
   <div class="form-group">
+    <%= form.label :attachments, "Attached documents" %>
+    <%= form.file_field :attachments, multiple: true, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= form.submit "Save", class: "btn btn-primary" %>
   </div>
+  <%= form.file_field :attachments, multiple: true %>
+
 <% end %>

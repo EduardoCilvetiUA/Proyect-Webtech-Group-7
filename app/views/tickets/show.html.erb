@@ -21,6 +21,20 @@
       <%= button_to "Destroy this ticket", @ticket, method: :delete, class: 'btn btn-outline-warning' %>
     </div>
   <% else %>
+
+<%= form_with(model: @ticket, url: update_execrandom_ticket_path(@ticket), method: :patch) do |form| %>
+  <div class="form-group">
+    <%= form.label :execrandoms, "Change executive in charge:" %>
+    <%= form.select :execrandoms, options_for_select(1..4), {}, class: 'form-control' %>
+  </div>
+  <%= form.submit "Update Executive", class: 'btn btn-outline-warning' %>
+<% end %>
+
+
+
+
+
+  
     <%= form_with(model: @ticket, remote: true, id: 'priority-form') do |form| %>
       <div class="form-group">
         <%= form.label :priority %>
@@ -63,6 +77,11 @@
     <%= form.submit "Add Comment", class: 'btn btn-outline-warning' %>
   <% end %>
   
+<h3>Attached Documents:</h3>
+<% @ticket.attachments.each do |attachment| %>
+  <p>Attachment: <%= link_to attachment.filename, url_for(attachment) %></p>
+<% end %>
+
   <%= link_to "Back to tickets", tickets_path, class: 'btn btn-outline-warning' %>
 </div>
 
