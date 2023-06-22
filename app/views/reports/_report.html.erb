@@ -6,8 +6,13 @@
     </p>
 
     <p>
-      <strong>Supervisor:</strong>
-      <%= report.supervisor_id %>
+      <strong>Creator:</strong>
+      <%= User.find(report.supervisor_id).name %>
+    </p>
+
+    <p>
+      <strong>Executive:</strong>
+      <%= User.find(report.executive_id).name %>
     </p>
 
     <p>
@@ -16,15 +21,51 @@
     </p>
 
     <p>
-      <strong>Date:</strong>
-      <%= report.date %>
-    </p>
-
-    <p>
       <strong>Data:</strong>
       <%= report.data %>
     </p>
 
+    <div class="data-section mb-3">
+      <button class="btn btn-primary toggle-button" onclick="toggleDetails('numberOfTickets')">Toggle Number of Tickets</button>
+      <div id="numberOfTickets" class="data-details" style="display: none;">
+        <% all_tickets = Ticket.where(execrandoms: User.find(report.executive_id).execrandoms).where("created_at >= ?", report.date) %>
+        <strong>Number of Tickets:</strong> <%= all_tickets.count %>
+      </div>
+    </div>
+
+    <div class="data-section mb-3">
+      <button class="btn btn-primary toggle-button" onclick="toggleDetails('numberOfOpenTickets')">Toggle Number of Open Tickets</button>
+      <div id="numberOfOpenTickets" class="data-details" style="display: none;">
+        <% open_tickets = Ticket.where(execrandoms: User.find(report.executive_id).execrandoms, status: "Open").where("created_at >= ?", report.date) %>
+        <strong>Number of Open Tickets:</strong> <%= open_tickets.count %>
+      </div>
+    </div>
+
+    <div class="data-section mb-3">
+      <button class="btn btn-primary toggle-button" onclick="toggleDetails('numberOfClosedTickets')">Toggle Number of Closed Tickets</button>
+      <div id="numberOfClosedTickets" class="data-details" style="display: none;">
+        <% closed_tickets = Ticket.where(execrandoms: User.find(report.executive_id).execrandoms, status: "Closed").where("created_at >= ?", report.date) %>
+        <strong>Number of Closed Tickets:</strong> <%= closed_tickets.count %>
+      </div>
+    </div>
+
+    <div class="data-section mb-3">
+      <button class="btn btn-primary toggle-button" onclick="toggleDetails('averageStarRating')">Toggle Average Star Rating (Closed Tickets)</button>
+      <div id="averageStarRating" class="data-details" style="display: none;">
+        <% if closed_tickets.present? %>
+          <strong>Average Star Rating (Closed Tickets):</strong> <%= closed_tickets.average(:star_rating).to_f.round(2) %>
+        <% else %>
+          <strong>Average Star Rating (Closed Tickets):</strong> N/A
+        <% end %>
+      </div>
+    </div>
+
+    <script>
+      function toggleDetails(elementId) {
+        var detailsElement = document.getElementById(elementId);
+        detailsElement.style.display = detailsElement.style.display === 'none' ? 'block' : 'none';
+      }
+    </script>
   </div>
 <% else %>
   <p style="color: red">You cannot access this data as a normal user.</p>

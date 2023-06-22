@@ -3,7 +3,6 @@
 <%= render @user %>
 
 <div>
-  <%= link_to "Edit this user", edit_user_path(@user), class: 'btn btn-outline-warning' %> |
   <%= link_to "Back to users", users_path, class: 'btn btn-outline-warning' %>
 
   <%= button_to "Destroy this user", @user, method: :delete, class: 'btn btn-outline-warning' %>

@@ -12,9 +12,16 @@
   <% end %>
 
   <div class="form-group">
-    <%= form.label :executive_id %>
-    <%= form.number_field :executive_id, class: "form-control" %>
+    <%= form.label :supervisor_id, "Creator name: " %>
+    <%= form.hidden_field :supervisor_id, value: current_user.id %>
+    <%= current_user.name %> <!-- Mostrar el nombre del supervisor actual -->
   </div>
+
+  <div class="form-group">
+    <%= form.label :executive_id, class: "control-label" %>
+    <%= form.collection_select :executive_id, User.where(role: "exec"), :id, :name, { prompt: "Select executive" }, { class: "form-control" } %>
+  </div>
+
 
   <div class="form-group">
     <%= form.label :report_type %>

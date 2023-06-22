@@ -10,18 +10,21 @@
   </p>
 
   <p>
-    <strong>Google account:</strong>
-    <%= user.google_account_id %>
-  </p>
-
-  <p>
     <strong>Password:</strong>
     [CONFIDENTIAL]
   </p>
-
   <p>
-    <strong>Role:</strong>
+
+  <% if user.role == 'normal' %>
+    Role: Normal
+  <% elsif user.role == 'super' %>
+    Role: Supervisor
+  <% elsif user.role == 'exec' %>
+    Role: Executive
+  <% else %>
     <%= user.role %>
+    Role: Administrator
+  <% end %>
   </p>
 
 </div>

@@ -9,7 +9,7 @@ class TicketsController < ApplicationController
       @tickets = Ticket.all
     end
     if params[:sort] == 'date'
-      @tickets = Ticket.order(created_at: :asc)
+      @tickets = Ticket.order(created_at: :desc)
     end
   end
 
@@ -41,7 +41,10 @@ class TicketsController < ApplicationController
     @ticket.supervisor_id = 1
     @ticket.status = 'Open'
     @ticket.priority = 'Low'
-    @ticket.execrandoms = rand(1..4)
+    usuarios_ejecutivos = User.where(role: "executive").count
+    random_number = rand(1..usuarios_ejecutivos)
+    @ticket.execrandoms = random_number
+
 
     respond_to do |format|
       if @ticket.save

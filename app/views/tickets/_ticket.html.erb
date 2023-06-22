@@ -37,12 +37,10 @@
 
     <p>
       <strong>Executive:</strong>
-      <%= ticket.executive.name %>
-    </p>
-
-    <p>
-      <strong>Supervisor:</strong>
-      <%= ticket.supervisor.name %>
+      <% user = User.find_by(execrandoms: ticket.execrandoms) %>
+      <% if user.present? %>
+        <%= user.name %>
+      <% end %>
     </p>
 
     <p>

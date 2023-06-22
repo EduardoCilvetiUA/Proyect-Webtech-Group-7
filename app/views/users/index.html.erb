@@ -6,10 +6,9 @@
   <table class="table-bordered">
     <thead>
     <tr>
+      <th>ID</th>
       <th>Name</th>
       <th>Email</th>
-      <th>ID</th>
-      <th>Google Account</th>
       <th>Role</th>
       <th></th>
     </tr>
@@ -17,10 +16,9 @@
       <% @users.each do |users| %>
     <tr>
     <% if users.role != 'admin' %>
+      <td><%= users.id %></td>
       <td><%= users.name %></td>
       <td><%= users.email %></td>
-      <td><%= users.id %></td>
-      <td><%= users.google_account_id %></td>
       <td>
       <% if users.role == 'normal' %>
         Normal
@@ -38,7 +36,6 @@
     <% end %>
     <tbody>
   </table>
-<%= link_to "New users", new_user_path, class: 'btn btn-outline-warning' %>
 <% else %>
   <p style="color: red">You cannot access this data as a normal user.</p>
 <% end %>

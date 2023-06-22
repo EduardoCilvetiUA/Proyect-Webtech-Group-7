@@ -15,16 +15,17 @@
     </thead>
     <tbody>
       <% @reports.each do |report| %>
-        <% if report.supervisor_id == current_user.id || current_user.role == 'admin'%>
-          <tr>
-            <td><%= report.id %></td>
-            <td><%= report.executive.name %></td>
-            <td><%= report.report_type %></td>
-            <td><%= report.created_at %></td>
-            <td><%= report.data %></td>
-            <td><%= link_to "Show user info", report, class: 'btn btn-outline-warning' %></td>
-          </tr>
+        <% if current_user.role == 'super' && report.supervisor_id != current_user.id %>
+          <% next %>
         <% end %>
+        <tr>
+          <td><%= report.id %></td>
+          <td><%= report.executive.name %></td>
+          <td><%= report.report_type %></td>
+          <td><%= report.created_at %></td>
+          <td><%= report.data %></td>
+          <td><%= link_to "Show user info", report, class: 'btn btn-outline-warning' %></td>
+        </tr>
       <% end %>
     </tbody>
   </table>

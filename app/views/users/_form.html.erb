@@ -1,47 +1,50 @@
 <% if current_user.role == 'admin' || current_user.role == 'super' %>
-<%= form_with(model: user) do |form| %>
-  <% if user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+  <%= form_with(model: user, class: "form") do |form| %>
+    <% if user.errors.any? %>
+      <div class="alert alert-danger" role="alert">
+        <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
-      <ul>
-        <% user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+        <ul>
+          <% user.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= form.label :name %>
+      <%= form.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :email %>
+      <%= form.text_field :email, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :google_account_id %>
+      <%= form.text_field :google_account_id, class: "form-control" %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :password %>
+      <% if action_name == "edit" %>
+        <%= form.password_field :password, class: "form-control", disabled: true %>
+      <% else %>
+        <%= form.password_field :password, class: "form-control" %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :role %>
+      <%= form.select :role, ['normal', 'super', 'exec'], {}, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= form.submit "Save", class: "btn btn-primary" %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :email, style: "display: block" %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :google_account_id, style: "display: block" %>
-    <%= form.text_field :google_account_id %>
-  </div>
-
-  <div>
-    <%= form.label :password, style: "display: block" %>
-    <%= form.text_field :password %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :role %>
-    <%= form.select :role, ['normal', 'super', 'exec'], {}, class: 'form-control' %>
-  </div>
-
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
 <% else %>
   <p style="color: red">You cannot access this data as a normal user.</p>
 <% end %>
