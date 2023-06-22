@@ -1,12 +1,15 @@
 <% if current_user.role == 'admin' || current_user.role == 'super' %>
 
-<%= render @user %>
+  <%= render @user %>
 
-<div>
-  <%= link_to "Back to users", users_path, class: 'btn btn-outline-warning' %>
+  <div>
+    <%= link_to "Back to users", users_path, class: 'btn btn-outline-warning' %>
 
-  <%= button_to "Destroy this user", @user, method: :delete, class: 'btn btn-outline-warning' %>
-</div>
+    <%= button_to "Destroy this user", @user, method: :delete, class: 'btn btn-outline-warning' %>
+
+    <%= button_to 'Update Role to Supervisor', update_role_to_supervisor_user_path(@user), method: :patch, class: 'btn btn-primary' %>
+  </div>
+  
 <% else %>
   <p style="color: red">You cannot access this data as a normal user.</p>
 <% end %>

@@ -14,6 +14,12 @@ class UsersController < ApplicationController
 
   end
 
+  def update_role_to_supervisor
+    @user = User.find(params[:id])
+    @user.update(role: 'super')
+    redirect_to user_url(@user), notice: 'User role was successfully updated to supervisor.'
+  end
+
   # GET /users/new
   def new
     @user = User.new
